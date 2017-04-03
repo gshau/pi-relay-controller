@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <link href="{{ url_for('static', filename='css/sweetalert2.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Pi Relay Controller (Seeed){% endblock %}
+
+{% block page_content %}
+    <p>Use the buttons below to set/toggle the status of the relay board's relays. You can set a specific relay on or
+        off by tapping the On and Off buttons for a particular relay. The Toggle button flips the status of the selected
+        relay. The All On and All Off buttons set all of the relays simultaneously.</p>
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <th scope="row">Relay 1</th>
+            <td>
+                <div class="btn-group-lg" role="group" aria-label="Relay 1">
+                    <button type="button" class="btn btn-success" id="on-1" onclick="setRelay(1, true);">On</button>
+                    <button type="button" class="btn btn-danger" id="off-1" onclick="setRelay(1, false);">Off
+                    </button>
+                    <button type="button" class="btn btn-info" id="toggle-1" onclick="toggleRelay(1);">Toggle
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="data-1" onclick="getRelayStatus(1);">
+                        Status
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Relay 2</th>
+            <td>
+                <div class="btn-group-lg" role="group" aria-label="Relay 2">
+                    <button type="button" class="btn btn-success" id="on-2" onclick="setRelay(2, true);">On</button>
+                    <button type="button" class="btn btn-danger" id="off-2" onclick="setRelay(2, false);">Off
+                    </button>
+                    <button type="button" class="btn btn-info" id="toggle-2" onclick="toggleRelay(2);">Toggle
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="data-1" onclick="getRelayStatus(2);">
+                        Status
+                    </button>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <th scope="row">Relay 3</th>
+            <td>
+                <div class="btn-group-lg" role="group" aria-label="Relay 3">
+                    <button type="button" class="btn btn-success" id="on-3" onclick="setRelay(3, true);">On</button>
+                    <button type="button" class="btn btn-danger" id="off-3" onclick="setRelay(3, false);">Off
+                    </button>
+                    <button type="button" class="btn btn-info" id="toggle-3" onclick="toggleRelay(3);">Toggle
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="data-1" onclick="getRelayStatus(3);">
+                        Status
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Relay 4</th>
+            <td>
+                <div class="btn-group-lg" role="group" aria-label="Relay 4">
+                    <button type="button" class="btn btn-success" id="on-4" onclick="setRelay(4, true);">On</button>
+                    <button type="button" class="btn btn-danger" id="off-4" onclick="setRelay(4, false);">Off
+                    </button>
+                    <button type="button" class="btn btn-info" id="toggle-4" onclick="toggleRelay(4);">Toggle
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="data-1" onclick="getRelayStatus(4);">
+                        Status
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">All</th>
+            <td>
+                <div class="btn-group-lg" role="group" aria-label="All">
+                    <button type="button" class="btn btn-success btn-lg" id="all_on" onclick="setAll(true);">
+                        All On
+                    </button>
+                    <button type="button" class="btn btn-danger btn-lg" id="all_off" onclick="setAll(false);">
+                        All Off
+                    </button>
+                    <button type="button" class="btn btn-info btn-lg" id="all_off" onclick="toggleAll(false);">
+                        Toggle All
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p>You should hear the relays click as they're activated; if you don't, it's probably not working ;-)</p>
+{% endblock %}

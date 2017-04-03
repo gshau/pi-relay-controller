@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Pi Relay Controller (Seeed) - Internal Error{% endblock %}
+
+{% block page_content %}
+<img src="{{ url_for('static', filename='img/error_100.png') }}"/>
+<div class="page-header">
+    <h1>Internal Error</h1>
+</div>
+<p>The web server was unable to load the requested page because of an internal error. You could try the URL again or
+    wait a while and try it yet again. The problem is that nothing's been done to actually address the issue, so
+    chances are nothing will change the next time you try this URL. Good luck!</p>
+<p>In reporting this error, the server said: <strong>{{ the_error }}</strong></p>
+{% endblock %}
