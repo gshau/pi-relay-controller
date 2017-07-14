@@ -23,7 +23,6 @@ bootstrap = Bootstrap(app)
 # like the right thing to do.
 api_all_relay_off()
 
-
 @app.route('/')
 def index():
     print("Loading app Main page")
