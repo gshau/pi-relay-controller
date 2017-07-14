@@ -7,21 +7,21 @@ from flask import make_response
 from flask import render_template
 from flask_bootstrap import Bootstrap
 
+from relay_lib_modmypi import *
+
 error_msg = '{msg:"error"}'
 success_msg = '{msg:"success"}'
 
 NUM_RELAY_PORTS = 4
 # Update the following list/tuple with the port numbers assigned to your relay board
-PORTS = (13, 14, 15, 16)
+PORTS = (7, 8, 10, 11)
 
 app = Flask(__name__)
 
 bootstrap = Bootstrap(app)
 
-# turn all of the relays off, so we're starting with a clean slate. Since the library can determine
-# relay status by querying the board, there's no real, burning need for this, but it seemed
-# like the right thing to do.
-api_all_relay_off()
+# turn all of the relays off, so we're starting with a clean slate.
+relay_all_off()
 
 
 @app.route('/')
