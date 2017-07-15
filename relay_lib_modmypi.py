@@ -7,19 +7,26 @@
 
 from __future__ import print_function
 
-from gpiozero import *
+from gpiozero import OutputDevice
 
 # The number of relay ports on the relay board.
 # This value should never change!
 NUM_RELAY_PORTS = 4
 RELAY_PORTS = ()
+RELAYS = ()
 
 
-def init(relay_ports):
-    # Get the relay port list from the main application
+def init_relay(port_list):
     global RELAY_PORTS
+    print("\nInitializing relay")
+    # Get the relay port list from the main application
     # assign the local variable with the value passed into init
-    RELAY_PORTS = relay_ports
+    RELAY_PORTS = port_list
+    print("Relay port list:", RELAY_PORTS)
+    # populate the RELAYS list with OutputDevice objects for each relay
+    for i, relay in enumerate(RELAY_PORTS):
+        print("Assiging outputDevice for pin", relay)
+        RELAYS.append(OutputDevice(relay, True, False))
     # return true if the number of passed ports equals the number of ports
     return len(RELAY_PORTS) == NUM_RELAY_PORTS
 

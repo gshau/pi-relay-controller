@@ -2,6 +2,8 @@
 
 from __future__ import print_function
 
+import sys
+
 from flask import Flask
 from flask import make_response
 from flask import render_template
@@ -16,12 +18,18 @@ NUM_RELAY_PORTS = 4
 # Update the following list/tuple with the port numbers assigned to your relay board
 PORTS = (7, 8, 10, 11)
 
+# initialize the relay library with the system's port configuration
+if init_relay(PORTS):
+    # turn all of the relays off, so we're starting with a clean slate.
+    relay_all_off()
+else:
+    print("Port configuration error")
+    # exit the application
+    sys.exit(0)
+
 app = Flask(__name__)
 
 bootstrap = Bootstrap(app)
-
-# turn all of the relays off, so we're starting with a clean slate.
-relay_all_off()
 
 
 @app.route('/')
