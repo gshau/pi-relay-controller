@@ -2,14 +2,26 @@
 # ModMyPi Raspberry Pi Relay Board Library
 #
 # by John M. Wargo (www.johnwargo.com)
-#
+# https://gpiozero.readthedocs.io/en/stable/
 # =========================================================
 
 from __future__ import print_function
 
+from gpiozero import *
+
 # The number of relay ports on the relay board.
 # This value should never change!
 NUM_RELAY_PORTS = 4
+RELAY_PORTS = ()
+
+
+def init(relay_ports):
+    # Get the relay port list from the main application
+    global RELAY_PORTS
+    # assign the local variable with the value passed into init
+    RELAY_PORTS = relay_ports
+    # return true if the number of passed ports equals the number of ports
+    return len(RELAY_PORTS) == NUM_RELAY_PORTS
 
 
 def relay_on(relay_num):
