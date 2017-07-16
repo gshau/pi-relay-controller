@@ -19,6 +19,7 @@ GPIO.setmode(GPIO.BOARD)
 # This value should never change!
 NUM_RELAY_PORTS = 4
 RELAY_PORTS = ()
+RELAY_STATUS = [0, 0, 0, 0]
 
 
 def init_relay(port_list):
@@ -41,6 +42,8 @@ def relay_on(relay_num):
         if 0 < relay_num <= NUM_RELAY_PORTS:
             print('Turning relay', relay_num, 'ON')
             GPIO.output(RELAY_PORTS[relay_num - 1], 1)
+            # set the status for this relay to 'on'
+            RELAY_STATUS[relay_num - 1] = 1
         else:
             print('Invalid relay #:', relay_num)
     else:
@@ -53,6 +56,8 @@ def relay_off(relay_num):
         if 0 < relay_num <= NUM_RELAY_PORTS:
             print('Turning relay', relay_num, 'OFF')
             GPIO.output(RELAY_PORTS[relay_num - 1], 0)
+            # set the status for this relay to 'off'
+            RELAY_STATUS[relay_num - 1] = 0
         else:
             print('Invalid relay #:', relay_num)
     else:
@@ -62,13 +67,19 @@ def relay_off(relay_num):
 def relay_all_on():
     print('Turning all relays ON')
     for relay in enumerate(RELAY_PORTS):
+        # turn the relay on
         GPIO.output(relay[1], 1)
+        # set the status for this relay to 'on'
+        RELAY_STATUS[relay[0]] = 1
 
 
 def relay_all_off():
     print('Turning all relays OFF')
     for relay in enumerate(RELAY_PORTS):
+        # turn the relay off
         GPIO.output(relay[1], 0)
+        # set the status for this relay to 'off'
+        RELAY_STATUS[relay[0]] = 0
 
 
 def relay_toggle_port(relay_num):
@@ -84,13 +95,4 @@ def relay_toggle_port(relay_num):
 def relay_get_port_status(relay_num):
     # determines whether the specified port is ON/OFF
     print('Checking status of relay', relay_num)
-
-    if res > 0:
-
-        # do this a different way
-
-        return True
-    else:
-        # otherwise (invalid port), always return False
-        print("Specified relay port is invalid")
-        return False
+    return RELAY_STATUS[relay_num - 1] == 1
