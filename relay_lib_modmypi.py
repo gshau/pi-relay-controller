@@ -7,13 +7,18 @@
 
 from __future__ import print_function
 
-from gpiozero import LED
+import RPi.GPIO as GPIO
+
+# Turn off GPIO warnings
+GPIO.setwarnings(False)
+
+# Set the GPIO numbering convention to be header pin numbers
+GPIO.setmode(GPIO.BOARD)
 
 # The number of relay ports on the relay board.
 # This value should never change!
 NUM_RELAY_PORTS = 4
 RELAY_PORTS = ()
-RELAYS = ()
 
 
 def init_relay(port_list):
@@ -23,12 +28,9 @@ def init_relay(port_list):
     # assign the local variable with the value passed into init
     RELAY_PORTS = port_list
     print("Relay port list:", RELAY_PORTS)
-    # populate the RELAYS list with OutputDevice objects for each relay
+    # setup the relay ports for output
     for relay in enumerate(RELAY_PORTS):
-        print("\nAssigning outputDevice for pin", relay)
-        tmp_object = LED(relay)
-        print("\nwe have an object")
-        RELAYS.append(tmp_object)
+        GPIO.setup(relay[1], GPIO.OUT)
     # return true if the number of passed ports equals the number of ports
     return len(RELAY_PORTS) == NUM_RELAY_PORTS
 
@@ -38,8 +40,7 @@ def relay_on(relay_num):
         # do we have a valid relay number?
         if 0 < relay_num <= NUM_RELAY_PORTS:
             print('Turning relay', relay_num, 'ON')
-            pass
-
+            GPIO.output(RELAY_PORTS[relay_num - 1], 1)
         else:
             print('Invalid relay #:', relay_num)
     else:
@@ -51,8 +52,7 @@ def relay_off(relay_num):
         # do we have a valid relay number?
         if 0 < relay_num <= NUM_RELAY_PORTS:
             print('Turning relay', relay_num, 'OFF')
-            pass
-
+            GPIO.output(RELAY_PORTS[relay_num - 1], 0)
         else:
             print('Invalid relay #:', relay_num)
     else:
@@ -61,12 +61,14 @@ def relay_off(relay_num):
 
 def relay_all_on():
     print('Turning all relays ON')
-    pass
+    for relay in enumerate(RELAY_PORTS):
+        GPIO.output(relay[1], 1)
 
 
 def relay_all_off():
     print('Turning all relays OFF')
-    pass
+    for relay in enumerate(RELAY_PORTS):
+        GPIO.output(relay[1], 0)
 
 
 def relay_toggle_port(relay_num):
