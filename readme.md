@@ -55,7 +55,7 @@ Finally, clone the controller application to your local system by executing the 
 	git clone https://github.com/johnwargo/pi-relay-controller-modmypi
 	cd pi-relay-controller-modmypi
 
-Since the relay's GPIO port assignments can be easily changed using the buttons on the board, before you can run the project, you must make one change to the project's server code. Open the `server.py` file using your editor of choice. Near the top of the file, you should see the following lines of code:
+Since the relay's GPIO port assignments can be easily changed using the buttons on the board, before you can run the project, you must make one change to the project's server code. Open the project's `server.py` file using your editor of choice. Near the top of the file, you should see the following lines of code:
 
 	# Update the following list/tuple with the port numbers assigned to your relay board
 	PORTS = (7, 8, 10, 11)
