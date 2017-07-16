@@ -1,4 +1,4 @@
-# Raspberry Pi Relay Controller for the ModMyPi Relay board
+# Raspberry Pi Relay Controller for the ModMyPi PiOT board
 
 The [ModMyPi PiOT Relay Board](https://www.modmypi.com/raspberry-pi/breakout-boards/modmypi/modmypi-piot-relay-board) is a 4-port relay controller board for the Raspberry Pi. The ModMyPi folks provide a Python application you can use to interact the board, but as I learned how to program the board, I modified my [Raspberry Pi Relay Controller for the Seeed Studio Raspberry Pi Relay Board](https://github.com/johnwargo/Raspberry-Pi-Relay-Controller-Seeed) project so it worked with this board.
 
@@ -60,7 +60,11 @@ Since the relay's GPIO port assignments can be easily changed using the buttons 
 	# Update the following list/tuple with the port numbers assigned to your relay board
 	PORTS = (7, 8, 10, 11)
 
-This ports list refers to the GPIO port configuration for the board. Change the values here based on your board's configuration. I don't know what the default configuration is, the ModMyPi documentation doesn't say, but I know for my board, the relay ports are assigned to GPIO pins 7, 8, 10, and 11, so that's why my `PORTS` variable is configured like it is. Refer to the ModMyPi PiOT board documentation for details on how to determine and set the GPIO pin assignments.
+This ports list refers to the GPIO port configuration for the board. Change the values here based on your board's configuration. I don't know what the default configuration is, the ModMyPi documentation doesn't say, but I know for my board, the relay ports are assigned to GPIO pins 7, 8, 10, and 11, so that's why my `PORTS` variable is configured like it is. 
+
+Refer to the ModMyPi PiOT board documentation for details on how to determine and set the GPIO pin assignments.
+
+**Note:** Right now, the project only supports a single PiOT board. If you stack multiple PiOT boards together, simply expand the `PORTS` list to include the additional ports. You'll need to change the `NUM_RELAY_PORTS` variable in both the `server.py` and `relay_lob_modmypi.py` files.
 
 ## Starting the Server Process
 
@@ -98,6 +102,25 @@ Add the following lines to the end (bottom) of the file:
 To save your changes, press `ctrl-o` then press the Enter key. Next, press `ctrl-x` to exit the `nano` application.
   
 Reboot the Raspberry Pi; when it restarts, the python server process should execute in its own terminal window automatically.
+
+## Using the Library In Your Projects
+
+To use the included library in your projects, simply include the `relay_lib_modmypi.py` file in your projects and be sure to add the following lines of code to your main Python file:
+
+	import sys
+	from relay_lib_modmypi import *	
+	
+	# Update the following list/tuple with the port numbers assigned to your relay board
+	PORTS = (7, 8, 10, 11) # Populate this list with values for your board configuration
+	
+	# initialize the relay library with the system's port configuration
+	if init_relay(PORTS):
+	    # turn all of the relays off, so we're starting with a clean slate.
+	    relay_all_off()
+	else:
+	    print("Port configuration error")
+	    # exit the application
+	    sys.exit(0)
 
 ## Update History
 
