@@ -1,9 +1,11 @@
-from gpiozero import LED
+from gpiozero import OutputDevice
 from time import sleep
 
-led = LED(7)
+print("output device")
+led = OutputDevice(7)
 
 while True:
+    print("loop")
     led.on()
     sleep(1)
     led.off()

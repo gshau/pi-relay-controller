@@ -25,8 +25,9 @@ def init_relay(port_list):
     print("Relay port list:", RELAY_PORTS)
     # populate the RELAYS list with OutputDevice objects for each relay
     for relay in enumerate(RELAY_PORTS):
-        print("Assiging outputDevice for pin", relay)
+        print("\nAssigning outputDevice for pin", relay)
         tmp_object = LED(relay)
+        print("\nwe have an object")
         RELAYS.append(tmp_object)
     # return true if the number of passed ports equals the number of ports
     return len(RELAY_PORTS) == NUM_RELAY_PORTS
