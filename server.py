@@ -14,9 +14,9 @@ from relay_lib_modmypi import *
 error_msg = '{msg:"error"}'
 success_msg = '{msg:"success"}'
 
-NUM_RELAY_PORTS = 4
 # Update the following list/tuple with the port numbers assigned to your relay board
 PORTS = (7, 8, 10, 11)
+NUM_RELAY_PORTS = 4
 
 # initialize the relay library with the system's port configuration
 if init_relay(PORTS):
