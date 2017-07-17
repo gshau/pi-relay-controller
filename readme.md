@@ -8,7 +8,7 @@ This project is slightly different than the Seeed version. With the Seeed Relay 
 
 ## About the Board
 
-The board looks something like the following (image 'borrowed' from [pimoroni.com](https://www.modmypi.com/raspberry-pi/breakout-boards/modmypi/modmypi-piot-relay-board):
+The board looks something like the following (image 'borrowed' from [pimoroni.com](https://www.modmypi.com/raspberry-pi/breakout-boards/modmypi/modmypi-piot-relay-board)):
 
 ![ModMyPi Relay pIOT Board](screenshots/figure-01.png)
 
