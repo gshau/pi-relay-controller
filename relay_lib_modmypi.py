@@ -71,6 +71,12 @@ def relay_all_on():
         GPIO.output(relay[1], 1)
         # set the status for this relay to 'on'
         RELAY_STATUS[relay[0]] = 1
+        # yes, I know I probably could have done the following:
+        # for i, relay in enumerate(RELAY_PORTS):
+        #     # turn the relay on
+        #     GPIO.output(relay, 1)
+        #     # set the status for this relay to 'on'
+        #     RELAY_STATUS[i] = 1
 
 
 def relay_all_off():
