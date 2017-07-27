@@ -1,3 +1,4 @@
+"""A module for interacting with the ModMyPi PiOT Relay board for the Raspberry Pi."""
 # =========================================================
 # ModMyPi Raspberry Pi Relay Board Library
 #
@@ -23,6 +24,11 @@ RELAY_STATUS = [0, 0, 0, 0]
 
 
 def init_relay(port_list):
+    """Initialize the module
+
+    Args:
+        port_list: A list containing the relay port assignments
+    """
     global RELAY_PORTS
     print("\nInitializing relay")
     # Get the relay port list from the main application
@@ -37,6 +43,13 @@ def init_relay(port_list):
 
 
 def relay_on(relay_num):
+    """Turn the specified relay (by relay #) on.
+
+    Call this function to turn a single relay on.
+
+    Args:
+        relay_num (int): The relay number that you want turned on.
+    """
     if isinstance(relay_num, int):
         # do we have a valid relay number?
         if 0 < relay_num <= NUM_RELAY_PORTS:
@@ -51,6 +64,13 @@ def relay_on(relay_num):
 
 
 def relay_off(relay_num):
+    """Turn the specified relay (by relay #) off.
+
+    Call this function to turn a single relay off.
+
+    Args:
+        relay_num (int): The relay number that you want turned off.
+    """
     if isinstance(relay_num, int):
         # do we have a valid relay number?
         if 0 < relay_num <= NUM_RELAY_PORTS:
@@ -65,6 +85,10 @@ def relay_off(relay_num):
 
 
 def relay_all_on():
+    """Turn all of the relays on.
+
+     Call this function to turn all of the relays on.
+     """
     print('Turning all relays ON')
     for relay in enumerate(RELAY_PORTS):
         # turn the relay on
@@ -80,6 +104,10 @@ def relay_all_on():
 
 
 def relay_all_off():
+    """Turn all of the relays on.
+
+    Call this function to turn all of the relays on.
+    """
     print('Turning all relays OFF')
     for relay in enumerate(RELAY_PORTS):
         # turn the relay off
@@ -89,6 +117,13 @@ def relay_all_off():
 
 
 def relay_toggle_port(relay_num):
+    """Toggle the specified relay (on to off, or off to on).
+
+    Call this function to toggle the status of a specific relay.
+
+    Args:
+        relay_num (int): The relay number to toggle.
+    """
     print('Toggling relay:', relay_num)
     if relay_get_port_status(relay_num):
         # it's on, so turn it off
@@ -99,6 +134,13 @@ def relay_toggle_port(relay_num):
 
 
 def relay_get_port_status(relay_num):
+    """Returns the status of the specified relay (True for on, False for off)
+
+    Call this function to retrieve the status of a specific relay.
+
+    Args:
+        relay_num (int): The relay number to query.
+    """
     # determines whether the specified port is ON/OFF
     print('Checking status of relay', relay_num)
     return RELAY_STATUS[relay_num - 1] == 1
