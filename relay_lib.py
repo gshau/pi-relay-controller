@@ -1,9 +1,11 @@
-"""A module for interacting with the ModMyPi PiOT Relay board for the Raspberry Pi."""
+"""A module for interacting with the ELEGOO 8 Channel board for the Raspberry Pi."""
 # =========================================================
-# ModMyPi Raspberry Pi Relay Board Library
+# Raspberry Pi Relay Board Library
 #
 # by John M. Wargo (www.johnwargo.com)
 # https://gpiozero.readthedocs.io/en/stable/
+#
+# by G. Shaughnessy
 # =========================================================
 
 from __future__ import print_function
@@ -18,9 +20,14 @@ GPIO.setmode(GPIO.BOARD)
 
 # The number of relay ports on the relay board.
 # This value should never change!
-NUM_RELAY_PORTS = 4
+NUM_RELAY_PORTS = 8
 RELAY_PORTS = ()
-RELAY_STATUS = [0, 0, 0, 0]
+RELAY_STATUS = NUM_RELAY_PORTS * [0]
+
+# Some relay boards have a default on state with a low pin
+ON_STATE = 0
+OFF_STATE = 1 - ON_STATE
+
 
 
 def init_relay(port_list):
@@ -54,9 +61,9 @@ def relay_on(relay_num):
         # do we have a valid relay number?
         if 0 < relay_num <= NUM_RELAY_PORTS:
             print('Turning relay', relay_num, 'ON')
-            GPIO.output(RELAY_PORTS[relay_num - 1], 1)
+            GPIO.output(RELAY_PORTS[relay_num - 1], ON_STATE)
             # set the status for this relay to 'on'
-            RELAY_STATUS[relay_num - 1] = 1
+            RELAY_STATUS[relay_num - 1] = ON_STATE
         else:
             print('Invalid relay #:', relay_num)
     else:
@@ -75,9 +82,9 @@ def relay_off(relay_num):
         # do we have a valid relay number?
         if 0 < relay_num <= NUM_RELAY_PORTS:
             print('Turning relay', relay_num, 'OFF')
-            GPIO.output(RELAY_PORTS[relay_num - 1], 0)
+            GPIO.output(RELAY_PORTS[relay_num - 1], OFF_STATE)
             # set the status for this relay to 'off'
-            RELAY_STATUS[relay_num - 1] = 0
+            RELAY_STATUS[relay_num - 1] = OFF_STATE
         else:
             print('Invalid relay #:', relay_num)
     else:
@@ -92,9 +99,9 @@ def relay_all_on():
     print('Turning all relays ON')
     for relay in enumerate(RELAY_PORTS):
         # turn the relay on
-        GPIO.output(relay[1], 1)
+        GPIO.output(relay[1], ON_STATE)
         # set the status for this relay to 'on'
-        RELAY_STATUS[relay[0]] = 1
+        RELAY_STATUS[relay[0]] = ON_STATE
         # yes, I know I probably could have done the following:
         # for i, relay in enumerate(RELAY_PORTS):
         #     # turn the relay on
@@ -111,9 +118,9 @@ def relay_all_off():
     print('Turning all relays OFF')
     for relay in enumerate(RELAY_PORTS):
         # turn the relay off
-        GPIO.output(relay[1], 0)
+        GPIO.output(relay[1], OFF_STATE)
         # set the status for this relay to 'off'
-        RELAY_STATUS[relay[0]] = 0
+        RELAY_STATUS[relay[0]] = OFF_STATE
 
 
 def relay_toggle_port(relay_num):
@@ -143,4 +150,4 @@ def relay_get_port_status(relay_num):
     """
     # determines whether the specified port is ON/OFF
     print('Checking status of relay', relay_num)
-    return RELAY_STATUS[relay_num - 1] == 1
+    return RELAY_STATUS[relay_num - 1] == ON_STATE

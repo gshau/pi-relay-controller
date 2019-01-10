@@ -1,3 +1,5 @@
+NUM_RELAY_PORTS = 8;
+
 function setRelay(relay, status) {
     console.log("Executing setRelay");
     var url = status ? 'on/' : 'off/';
@@ -11,7 +13,7 @@ function toggleRelay(relay) {
 
 function callApiWithRelay(url, relay) {
     console.log("Executing callApiWithRelay");
-    if (relay > 0 && relay < 5) {
+    if (relay > 0 && relay < NUM_RELAY_PORTS + 1) {
         url += relay;
         callApi(url);
     } else {
@@ -32,7 +34,7 @@ function setAll(status) {
 
 function toggleAll() {
     console.log("Executing toggleAll");
-    for (var i = 1; i < 5; i++) {
+    for (var i = 1; i < NUM_RELAY_PORTS + 1; i++) {
         toggleRelay(i);
     }
 }

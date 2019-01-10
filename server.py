@@ -1,4 +1,4 @@
-# Raspberry Pi Relay Controller: ModMyPi Version
+# Raspberry Pi Relay Controller
 
 from __future__ import print_function
 
@@ -9,14 +9,14 @@ from flask import make_response
 from flask import render_template
 from flask_bootstrap import Bootstrap
 
-from relay_lib_modmypi import *
+from relay_lib import *
 
 error_msg = '{msg:"error"}'
 success_msg = '{msg:"success"}'
 
 # Update the following list/tuple with the port numbers assigned to your relay board
-PORTS = (7, 8, 10, 11)
-NUM_RELAY_PORTS = 4
+PORTS = (3, 5, 7, 11, 12, 13, 15, 16)
+NUM_RELAY_PORTS = len(PORTS)
 
 # initialize the relay library with the system's port configuration
 if init_relay(PORTS):
@@ -36,7 +36,7 @@ bootstrap = Bootstrap(app)
 def index():
     print("Loading app Main page")
     # return success_resp
-    return render_template('index.html')
+    return render_template('index.html', n_channels=list(range(1, NUM_RELAY_PORTS+1)))
 
 
 @app.route('/status/<int:relay>')
