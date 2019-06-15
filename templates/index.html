@@ -20,8 +20,10 @@
       <th scope="row">Relay {{ i_channel }}</th>
       <td>
         <div class="btn-group-lg" role="group" aria-label="Relay {{ i_channel }}">
-          <button type="button" class="btn btn-success" id="on-{{ i_channel }}" onclick="setRelay({{ i_channel }}, true);">On</button>
-          <button type="button" class="btn btn-danger" id="off-{{ i_channel }}" onclick="setRelay({{ i_channel }}, false);">Off
+          <button type="button" class="btn btn-success" id="on-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'on');">On</button>
+          <button type="button" class="btn btn-danger" id="off-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'off');">Off
+          </button>
+          <button type="button" class="btn btn-danger" id="off-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'off_wait_on');">Reboot
           </button>
           <button type="button" class="btn btn-info" id="toggle-{{ i_channel }}" onclick="toggleRelay({{ i_channel }});">Toggle
           </button>

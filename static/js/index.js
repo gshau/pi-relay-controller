@@ -2,8 +2,7 @@ NUM_RELAY_PORTS = 8;
 
 function setRelay(relay, status) {
     console.log("Executing setRelay");
-    var url = status ? 'on/' : 'off/';
-    callApiWithRelay(url, relay);
+    callApiWithRelay(status + '/', relay);
 }
 
 function toggleRelay(relay) {

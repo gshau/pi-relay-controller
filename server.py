@@ -3,6 +3,7 @@
 from __future__ import print_function
 
 import sys
+import time
 
 from flask import Flask
 from flask import make_response
@@ -93,6 +94,19 @@ def api_all_relay_off():
     print("Executing api_relay_all_off")
     relay_all_off()
     return make_response(success_msg, 200)
+
+@app.route('/off_wait_on/<int:relay>')
+def api_relay_off_wait_on(relay, sleep_time=3):
+    print("Executing api_relay_off_wait_on:", relay)
+    if validate_relay(relay):
+        print("valid relay")
+        relay_off(relay)
+        time.sleep(sleep_time)
+        relay_on(relay)
+        return make_response(success_msg, 200)
+    else:
+        print("invalid relay")
+        return make_response(error_msg, 404)
 
 
 @app.errorhandler(404)
