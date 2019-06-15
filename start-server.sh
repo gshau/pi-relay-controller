@@ -5,4 +5,4 @@
 
 echo "Starting Relay Controller server process"
 # python3 server.py runserver -r
-/usr/bin/python3 /home/pi/pi-relay-controller-modmypi/server.py runserver -r
+/usr/bin/python3 /home/pi/pi-relay-controller/server.py runserver -r
