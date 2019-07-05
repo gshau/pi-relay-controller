@@ -6,25 +6,24 @@
 <link href="{{ url_for('static', filename='css/sweetalert2.css') }}" rel="stylesheet">
 {% endblock %}
 
-{% block title %}Pi Relay Controller{% endblock %}
+{% block title %}{{ relay_name }}{% endblock %}
+
 
 {% block page_content %}
-<p>Use the buttons below to set/toggle the status of the relay board's relays. You can set a specific relay on or
-  off by tapping the On and Off buttons for a particular relay. The Toggle button flips the status of the selected
-  relay. The All On and All Off buttons set all of the relays simultaneously.</p>
 <table class="table table-bordered">
   <tbody>
 
     {% for val in channel_info  %}
+{% set i_channel = val['channel'] %}
       {% if val["visible"] %}
       <tr>
-       <th scope="row">{{ val['name'] }}</th>
+             <th scope="row">{{ val['name'] }} <br> Relay {{ val['channel'] }}</th>
         <td>
           <div class="btn-group-lg" role="group" aria-label="Relay {{ i_channel }}">
             <button type="button" class="btn btn-success" id="on-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'on');">On</button>
             <button type="button" class="btn btn-danger" id="off-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'off');">Off
             </button>
-            <button type="button" class="btn btn-warning" id="off-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'reboot');">Reboot
+            <button type="button" class="btn btn-warning" id="reboot-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'reboot');">Reboot
             </button>
             <button type="button" class="btn btn-info" id="toggle-{{ i_channel }}" onclick="toggleRelay({{ i_channel }});">Toggle
             </button>
@@ -54,15 +53,7 @@
     </tr>
   </tbody>
 </table>
-<p>You should hear the relays click as they're activated; if you don't, it's probably not working.</p>
 
-<div>
-  <p>This relay supports a rest api. Turn on/off or toggle a channel with a GET request to
-    <ul>
-      <li>Channel 3 on: http://relay-host/on/3</li>
-      <li>Channel 5 off: http://relay-host/off/5</li>
-      <li>Channel 7 toggle: http://relay-host/toggle/3</li>
-    </ul>
-  </p>
 </div>
+
 {% endblock %}

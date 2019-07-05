@@ -1,45 +1,45 @@
 {
     "channels": [
         {
-            "visible": "True",
+            "visible": true,
             "channel": 1,
-            "name": "Relay 1"
+            "name": "Focus Controller"
         },
         {
-            "visible": "True",
+            "visible": true,
             "channel": 2,
-            "name": "Relay 2"
+            "name": "CCD"
         },
         {
-            "visible": "True",
+            "visible": false,
             "channel": 3,
             "name": "Relay 3"
         },
         {
-            "visible": "True",
+            "visible": false,
             "channel": 4,
             "name": "Relay 4"
         },
         {
-            "visible": "True",
+            "visible": false,
             "channel": 5,
             "name": "Relay 5"
         },
         {
-            "visible": "True",
+            "visible": true,
             "channel": 6,
-            "name": "Relay 6"
+            "name": "Mount"
         },
         {
-            "visible": "True",
+            "visible": true,
             "channel": 7,
-            "name": "Relay 7"
+            "name": "USB Power"
         },
         {
-            "visible": "True",
+            "visible": true,
             "channel": 8,
-            "name": "Relay 8"
-        },
+            "name": "Dew Controller"
+        }
 
     ]
 }

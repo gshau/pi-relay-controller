@@ -20,6 +20,8 @@ success_msg = '{msg:"success"}'
 PORTS = (3, 5, 7, 11, 12, 13, 15, 16)
 NUM_RELAY_PORTS = len(PORTS)
 
+RELAY_NAME = 'Relay Controller'
+
 # initialize the relay library with the system's port configuration
 if init_relay(PORTS):
     # turn all of the relays off, so we're starting with a clean slate.
@@ -40,7 +42,7 @@ with open('channels.json') as json_file:
 @app.route('/')
 def index():
     print("Loading app Main page")
-    return render_template('index.html', channel_info=channel_config['channels'])
+    return render_template('index.html', relay_name=RELAY_NAME, channel_info=channel_config['channels'])
 
 
 @app.route('/status/<int:relay>')
