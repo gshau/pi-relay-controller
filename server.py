@@ -32,12 +32,15 @@ app = Flask(__name__)
 
 bootstrap = Bootstrap(app)
 
+channel_info = {}
+for i_channel in range(1, NUM_RELAY_PORTS+1):
+    channel_info[i_channel] = {'name': "foo {}".format(i_channel), visible: True}
 
 @app.route('/')
 def index():
     print("Loading app Main page")
     # return success_resp
-    return render_template('index.html', n_channels=list(range(1, NUM_RELAY_PORTS+1)))
+    return render_template('index.html', n_channels=list(range(1, NUM_RELAY_PORTS+1), channel_info=channel_info))
 
 
 @app.route('/status/<int:relay>')

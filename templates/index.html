@@ -16,23 +16,26 @@
   <tbody>
 
     {% for i_channel in n_channels %}
-    <tr>
-      <th scope="row">Relay {{ i_channel }}</th>
-      <td>
-        <div class="btn-group-lg" role="group" aria-label="Relay {{ i_channel }}">
-          <button type="button" class="btn btn-success" id="on-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'on');">On</button>
-          <button type="button" class="btn btn-danger" id="off-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'off');">Off
-          </button>
-          <button type="button" class="btn btn-warning" id="off-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'reboot');">Reboot
-          </button>
-          <button type="button" class="btn btn-info" id="toggle-{{ i_channel }}" onclick="toggleRelay({{ i_channel }});">Toggle
-          </button>
-          <button type="button" class="btn btn-secondary" id="data-1" onclick="getRelayStatus({{ i_channel }});">
-            Status
-          </button>
-        </div>
-      </td>
-    </tr>
+      {% if {{channel_info[i_channel]['visible']}} %}
+      <tr>
+        <th scope="row">{{ channel_info[i_channel]['name'] }}</th>
+        <!-- <th scope="row">Relay {{ i_channel }}</th> -->
+        <td>
+          <div class="btn-group-lg" role="group" aria-label="Relay {{ i_channel }}">
+            <button type="button" class="btn btn-success" id="on-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'on');">On</button>
+            <button type="button" class="btn btn-danger" id="off-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'off');">Off
+            </button>
+            <button type="button" class="btn btn-warning" id="off-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'reboot');">Reboot
+            </button>
+            <button type="button" class="btn btn-info" id="toggle-{{ i_channel }}" onclick="toggleRelay({{ i_channel }});">Toggle
+            </button>
+            <button type="button" class="btn btn-secondary" id="data-1" onclick="getRelayStatus({{ i_channel }});">
+              Status
+            </button>
+          </div>
+        </td>
+      </tr>
+      {% endif %}
     {% endfor %}
     <tr>
       <th scope="row">All</th>
