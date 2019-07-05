@@ -1,0 +1,45 @@
+{
+    "channels": [
+        {
+            "visible": "True",
+            "channel": 1,
+            "name": "Relay 1"
+        },
+        {
+            "visible": "True",
+            "channel": 2,
+            "name": "Relay 2"
+        },
+        {
+            "visible": "True",
+            "channel": 3,
+            "name": "Relay 3"
+        },
+        {
+            "visible": "True",
+            "channel": 4,
+            "name": "Relay 4"
+        },
+        {
+            "visible": "True",
+            "channel": 5,
+            "name": "Relay 5"
+        },
+        {
+            "visible": "True",
+            "channel": 6,
+            "name": "Relay 6"
+        },
+        {
+            "visible": "True",
+            "channel": 7,
+            "name": "Relay 7"
+        },
+        {
+            "visible": "True",
+            "channel": 8,
+            "name": "Relay 8"
+        },
+
+    ]
+}

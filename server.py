@@ -33,7 +33,7 @@ app = Flask(__name__)
 
 bootstrap = Bootstrap(app)
 
-with open('channels.config') as json_file:
+with open('channels.json') as json_file:
     channel_config = json.load(json_file)
 
 
