@@ -95,9 +95,9 @@ def api_all_relay_off():
     relay_all_off()
     return make_response(success_msg, 200)
 
-@app.route('/off_wait_on/<int:relay>')
-def api_relay_off_wait_on(relay, sleep_time=3):
-    print("Executing api_relay_off_wait_on:", relay)
+@app.route('/reboot/<int:relay>')
+def api_relay_reboot(relay, sleep_time=3):
+    print("Executing api_relay_reboot:", relay)
     if validate_relay(relay):
         print("valid relay")
         relay_off(relay)
