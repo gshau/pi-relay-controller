@@ -15,11 +15,10 @@
 <table class="table table-bordered">
   <tbody>
 
-    {% for i_channel in n_channels %}
-      {% if {{channel_info[i_channel]['visible']}} %}
+    {% for val in channel_info  %}
+      {% if val["visible"] %}
       <tr>
-        <th scope="row">{{ channel_info[i_channel]['name'] }}</th>
-        <!-- <th scope="row">Relay {{ i_channel }}</th> -->
+       <th scope="row">{{ val['name'] }}</th>
         <td>
           <div class="btn-group-lg" role="group" aria-label="Relay {{ i_channel }}">
             <button type="button" class="btn btn-success" id="on-{{ i_channel }}" onclick="setRelay({{ i_channel }}, 'on');">On</button>

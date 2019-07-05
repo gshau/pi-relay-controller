@@ -5,5 +5,5 @@
 
 echo "Starting Relay Controller server process"
 # python3 server.py runserver -r
-python=$(which python)
+python=$(which python3)
 $python /home/pi/pi-relay-controller/server.py runserver -r
