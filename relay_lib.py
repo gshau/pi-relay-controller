@@ -11,6 +11,7 @@
 from __future__ import print_function
 
 import RPi.GPIO as GPIO
+import time
 
 # Turn off GPIO warnings
 GPIO.setwarnings(False)
@@ -28,7 +29,8 @@ RELAY_STATUS = NUM_RELAY_PORTS * [0]
 ON_STATE = 0
 OFF_STATE = 1 - ON_STATE
 
-
+# Delay time between turning on next channels for `all_on` and `all_off` - for stability
+DELAY_TIME = 0.2
 
 def init_relay(port_list):
     """Initialize the module
@@ -91,36 +93,30 @@ def relay_off(relay_num):
         print('Relay number must be an Integer value')
 
 
-def relay_all_on():
+def relay_all_on(relay_ports=RELAY_PORTS):
     """Turn all of the relays on.
 
      Call this function to turn all of the relays on.
      """
     print('Turning all relays ON')
-    for relay in enumerate(RELAY_PORTS):
-        # turn the relay on
-        GPIO.output(relay[1], ON_STATE)
-        # set the status for this relay to 'on'
-        RELAY_STATUS[relay[0]] = ON_STATE
-        # yes, I know I probably could have done the following:
-        # for i, relay in enumerate(RELAY_PORTS):
-        #     # turn the relay on
-        #     GPIO.output(relay, 1)
-        #     # set the status for this relay to 'on'
-        #     RELAY_STATUS[i] = 1
+    for i_relay, relay in enumerate(relay_ports):
+        GPIO.output(relay, ON_STATE)
+        RELAY_STATUS[i_relay] = ON_STATE
+        time.sleep(DELAY_TIME)
 
 
-def relay_all_off():
+def relay_all_off(relay_ports=RELAY_PORTS):
     """Turn all of the relays on.
 
     Call this function to turn all of the relays on.
     """
     print('Turning all relays OFF')
-    for relay in enumerate(RELAY_PORTS):
+    for i_relay, relay in enumerate(relay_ports):
         # turn the relay off
-        GPIO.output(relay[1], OFF_STATE)
+        GPIO.output(relay, OFF_STATE)
         # set the status for this relay to 'off'
-        RELAY_STATUS[relay[0]] = OFF_STATE
+        RELAY_STATUS[i_relay] = OFF_STATE
+        time.sleep(DELAY_TIME)
 
 
 def relay_toggle_port(relay_num):
@@ -138,6 +134,22 @@ def relay_toggle_port(relay_num):
     else:
         # it's off, so turn it on
         relay_on(relay_num)
+
+
+def relay_toggle_all_port(relay_num):
+    """Toggle the specified relay (on to off, or off to on).
+
+    Call this function to toggle the status of a specific relay.
+
+    Args:
+        relay_num (int): The relay number to toggle.
+    """
+    for i_relay, relay in enumerate(relay_ports):
+        print('Toggling relay:', relay_num)
+        if relay_get_port_status(relay_num):
+            relay_off(relay_num)
+        else:
+            relay_on(relay_num)
 
 
 def relay_get_port_status(relay_num):

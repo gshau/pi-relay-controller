@@ -20,7 +20,7 @@ success_msg = '{msg:"success"}'
 PORTS = (3, 5, 7, 11, 12, 13, 15, 16)
 NUM_RELAY_PORTS = len(PORTS)
 
-RELAY_NAME = 'Relay Controller'
+RELAY_NAME = 'Mach 1 AstroBox Relay Controller'
 
 # initialize the relay library with the system's port configuration
 if init_relay(PORTS):
@@ -35,9 +35,19 @@ app = Flask(__name__)
 
 bootstrap = Bootstrap(app)
 
-with open('channels.json') as json_file:
+root_dir = '/home/pi/pi-relay-controller'
+with open('{}/channels.json'.format(root_dir)) as json_file:
     channel_config = json.load(json_file)
 
+supported_channels = []
+for channel in channel_config['channels']:
+    if channel['active'] == 'true':
+        print('channel: ', channel['channel'])
+        supported_channels.append(PORTS[channel['channel'] - 1])
+    else:
+        relay_off(channel['channel'])
+
+print(supported_channels)
 
 @app.route('/')
 def index():
@@ -90,14 +100,14 @@ def api_relay_off(relay):
 @app.route('/all_on/')
 def api_relay_all_on():
     print("Executing api_relay_all_on")
-    relay_all_on()
+    relay_all_on(supported_channels)
     return make_response(success_msg, 200)
 
 
 @app.route('/all_off/')
 def api_all_relay_off():
     print("Executing api_relay_all_off")
-    relay_all_off()
+    relay_all_off(supported_channels)
     return make_response(success_msg, 200)
 
 @app.route('/reboot/<int:relay>')
@@ -134,5 +144,5 @@ def validate_relay(relay):
 if __name__ == "__main__":
     # On the Pi, you need to run the app using this command to make sure it
     # listens for requests outside of the device.
-    # app.run(host='0.0.0.0')
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=80)
+    #app.run(host='0.0.0.0', port=5000, debug=True)
