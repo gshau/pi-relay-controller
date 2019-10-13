@@ -20,7 +20,7 @@ success_msg = '{msg:"success"}'
 PORTS = (3, 5, 7, 11, 12, 13, 15, 16)
 NUM_RELAY_PORTS = len(PORTS)
 
-RELAY_NAME = 'Mach 1 AstroBox Relay Controller'
+RELAY_NAME = 'AstroBox Relay Controller'
 
 # initialize the relay library with the system's port configuration
 if init_relay(PORTS):
